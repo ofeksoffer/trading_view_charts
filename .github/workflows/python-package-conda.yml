@@ -1,11 +1,17 @@
-name: Triggered Workflow
+name: Triggered Workflow with Parameters
 
 on:
   workflow_dispatch:
+    inputs:
+      custom_param:
+        description: "Custom parameter"
+        required: true
+        default: "default_value"
 
 jobs:
   run_task:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Print a message
-        run: echo "Workflow triggered successfully!"
+      - name: Print input parameter
+        run: echo "Custom parameter passed: ${{ github.event.inputs.custom_param }}"
