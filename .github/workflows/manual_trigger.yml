@@ -1,17 +1,24 @@
-name: Triggered Workflow with Parameters
+name: Update TradingView Widget
 
 on:
   workflow_dispatch:
     inputs:
-      custom_param:
-        description: "Custom parameter"
+      html_content:
+        description: "HTML content for TradingView widget"
         required: true
-        default: "default_value"
 
 jobs:
-  run_task:
+  update_widget:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Print input parameter
-        run: echo "Workflow triggered successfully!"
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Update TradingView HTML
+        run: |
+          echo "${{ github.event.inputs.html_content }}" > chart.html
+          git config --local user.name "GitHub Actions"
+          git config --local user.email "actions@github.com"
+          git add chart.html
+          git commit -m "Update TradingView widget"
+          git push
