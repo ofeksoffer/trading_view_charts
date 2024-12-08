@@ -1,0 +1,11 @@
+name: Triggered Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run_task:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print a message
+        run: echo "Workflow triggered successfully!"
